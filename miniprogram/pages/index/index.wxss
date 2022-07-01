@@ -1,0 +1,76 @@
+/**index.wxss**/
+page {
+  padding-top: 54rpx;
+  background-color: #f6f6f6;
+  padding-bottom: 60rpx;
+  margin-bottom: 12px;
+}
+
+.title {
+  font-family: PingFang SC;
+  font-weight: 500;
+  color: #000000;
+  font-size: 44rpx;
+  margin-bottom: 40rpx;
+}
+
+page > view > .options{
+    display: flex;
+    margin-bottom: 10px;
+}
+
+
+page > view > .options > button{
+    /* border: 1px solid black; */
+}
+
+page > view > div.filter{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-bottom: 10px;
+    width: 100vw;
+}
+
+page > view > div.filter > van-dropdown-menu {
+    display: inline-block;
+    width: 25vw;
+}
+
+page > view > div.cellImage{
+    width: 80vw;
+    height: 50vh;
+    /* border: 2px solid black;
+    border-radius: 10%; */
+    position: relative;
+    margin-bottom: 10px;
+}
+
+page > view > div.cellImage> canvas{
+    width: 250px;
+    height: 250px;
+    position: absolute;
+}
+
+page > view > div.cellImage> .back{
+    z-index: -1;
+    background-color: lightblue;
+}
+
+page > view > div.cellImage> .back> image{
+    z-index: -1;
+}
+
+page > view > div.cellImage> .front{
+    left:30px;
+    z-index: 6;
+    background-color: lightsalmon;
+    opacity: 0.2;
+}
+
+page > view> div.classify{
+    margin-bottom: 10px;
+}
+
+
+
