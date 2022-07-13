@@ -1,0 +1,15 @@
+<!--pages/login.wxml-->
+<view>
+    <view>账号</view>
+    <input type="text" placeholder="请输入账号" bindinput="getAccount"></input>
+    <view>密码</view>
+    <input type="text" placeholder="请输入密码" bindinput="getPassword"></input>
+    
+    <view class="btn">
+        <button type="primary" bindtap="loadByAccount">登录</button>
+    </view>
+    <!-- <view class="tosign"> -->
+    <!-- <view bindtap="toSign">注册</view> -->
+    <!-- </view> -->
+
+</view>

@@ -9,6 +9,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@vant/weapp": "^1.10.3"
+    "@cloudbase/manager-node": "^4.0.1",
+    "@vant/weapp": "^1.10.3",
+    "wx-server-sdk": "^2.6.3"
   }
 }

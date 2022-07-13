@@ -1,0 +1,20 @@
+/* pages/login.wxss */
+
+
+input{
+    margin: 20rpx;
+    padding-left: 10rpx;
+    height: 80rpx;
+    border: 1rpx solid #c3c3c3;
+  }
+  view{
+    margin: 20rpx;
+  }
+  .btn{
+    display: flex;
+    margin-top: 50rpx;
+  }
+  .tosign{
+    margin-top: 50rpx;
+    text-align: center;
+  }

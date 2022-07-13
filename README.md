@@ -74,3 +74,20 @@ onChangeMarked:function(e){
 
 ```
 
+- 上传一组图片，需要Promise.all
+```javascript
+const tempFiles = res.tempFiles
+let httpData=[]
+for (let i = 0; i < tempFiles.length; i++) {
+    httpData.push(_this.upload(tempFiles[i]))
+}
+console.log(httpData)
+Promise.all(httpData).then(res=>{
+    wx.showToast({
+        title: '上传成功',
+        icon: 'success',
+        duration:0
+    })
+})
+
+```

@@ -1,0 +1,57 @@
+<!--pages/markCell/markCell.wxml-->
+<view class="container">
+    <van-notify id="van-notify" />
+    <div class="filter">
+        <van-dropdown-menu active-color='lightblue'>
+            <van-dropdown-item value="{{ cellTypeValue }}" options="{{ cellType }}" bind:change='ChangeType'/>
+        </van-dropdown-menu>
+        <van-checkbox value="{{ hasMarked }}" shape="square" bind:change="onChangeMarked">
+        已标注
+        </van-checkbox>
+        <van-checkbox value="{{ noMarked }}" shape="square" bind:change="onChangeNoMarked">
+        未标注
+        </van-checkbox>
+    </div>
+    <div class="options">
+        <van-button id="revocation" bindtap="clearMyCanvas">清空</van-button>
+        <van-button id="uploadImage" bindtap="uploadImage" type="primary">上传本地图片</van-button>
+    </div>
+    <div class="cellImage" id="cellImage">
+        <canvas id="backCanvas" class="back" style="border: 2px solid black;"  type="2d">
+            <image style="width: 100%; height: 100%; background-color: #eeeeee;"  model:src="{{currentImg.src}}"></image>
+        </canvas>
+        <canvas id="myCanvas" class="front" style="border: 2px solid blue;" type="2d"
+            disable-scroll="false"
+            bindtouchstart="touchStart"
+            bindtouchmove="touchMove"
+        ></canvas>
+        <!-- 
+            bindtouchend="touchEnd" -->
+    
+    </div>
+    <!--画布工具区域-->
+    <view class="canvas_tools">
+        <view class="box box1" bindtap="penSelect" data-param="5"></view>
+        <view class="box box2" bindtap="penSelect" data-param="15"></view>
+        <view class="box box3" bindtap="colorSelect" data-param="#cc0033"></view>
+        <view class="box box4" bindtap="colorSelect" data-param="#ff9900"></view>
+        <view class="box box5" bindtap="clearCanvas"></view>
+    </view>
+    
+    <div class="classify" >
+        <radio-group bindchange="radioChange">
+            <label class="radio">
+                <radio value="hem" model:checked="{{currentImg.benign}}" />成熟淋巴细胞
+            </label>
+            <label class="radio">
+                <radio value="all" />原始淋巴细胞
+            </label>
+        </radio-group>
+    </div>
+    <div class="btn-toggle">
+        <van-button class="pre" bindtap="pagePre">上一张</van-button>
+        <van-button class="next" bindtap="pageNext">下一张</van-button>
+    </div>
+
+
+</view>
