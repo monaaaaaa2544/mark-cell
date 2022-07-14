@@ -1,5 +1,5 @@
 
-
+const db = wx.cloud.database()
 Page({
     data: {
         penSize : 10, //画笔粗细默认值
@@ -46,29 +46,15 @@ Page({
 
 
     onLoad(){
-        // wx.cloud.callFunction({
-        //     name:"loging",
-        //     data:{
-        //         a:1,
-        //         b:2,
-        //     },
-        // }).then((res)=>{
-        //     console.log(res.result)
-        // })
-
-
         // 获取图片
-        wx.cloud.database().collection("images")
-            .get()
-            .then(res=>{
-                console.log("请求成功",res);
+        db.collection("images").where({}).get()
+        .then(res=>{
+                // console.log("请求成功",res);
                 this.setData({
                     allImgList:res.data
                 })
-                console.log(this.data.allImgList)
-            })
-            .catch(err=>{
-            console.log("请求失败",err);
+                console.log(this.data.allImgList.length)
+            }).catch(err=>{console.log("请求失败",err);
         }).then((res)=>{
                 // 上层绘图图层
                 wx.createSelectorQuery()
@@ -381,28 +367,59 @@ Page({
                         httpData.push(_this.upload(tempFiles[i]))
                     }
                     // console.log(httpData)
+                    wx.showLoading({
+                        title: '加载中',
+                    })
                     Promise.all(httpData).then(res=>{
                         wx.showToast({
                             title: '上传成功',
                             icon: 'success',
                             duration:0
                         })
-                        resolve("上传所有图片成功！")
+                        resolve("上传所有图片成功")
                     })
                     
                 }
             })
             
         }).then(res=>{
-                // 同步到数据库
+                // 图片同步到数据库
                 console.log(res)
-                console.log(this.data.fileIDs)
-        })
+                // console.log(this.data.fileIDs)
+                let httpData=[]
+                for(let i=0;i<this.data.fileIDs.length;i++){
+                    httpData.push(this.upbase({
+                        // "_id":asdfasdf,
+                        "benign":null,
+                        "marked":false,
+                        "src":this.data.fileIDs[i],
+                        "type":"ALL"
+                    }, "images"))
+                }
 
+                Promise.all(httpData).then(res=>{
+                        console.log('上传到数据库成功')
+                        // console.log(httpData)
+                        
+                        // 刷新当前获取的图片
+                        db.collection("images").where({}).get()
+                        .then(res=>{
+                                console.log("获取所有图片成功",res);
+                                this.setData({
+                                    allImgList:res.data
+                                })
+                                // console.log(this.data.allImgList.length)
+                        }).catch(err=>console.log("获取所有图片失败",err));
+                        this.LoadImgs()
+                        console.log(this.data.currentImgList)
 
-    },
+                }).catch(err=>console.log(err))
+
+            })
+        },
 
     upload(file){
+        // 上传至云存储
        return new Promise((resolve, reject)=>{
         //    let uploadStatus=false //记录是否上传成功
            // 循环上传每一张选取的图片
@@ -423,7 +440,19 @@ Page({
        })             
     },
 
-
+    upbase(d, dbName){
+        // 上传至数据库
+        let _d=d
+        return new Promise((resolve, reject)=>{
+            db.collection(dbName).add({
+                data:_d
+            }).then(res=>{
+                console.log(res)
+                resolve("成功上传至数据库")
+            }).catch(err=>reject("上传至数据库失败"))
+        })
+      
+    },
 
     clearArc(context, x, y, radius) {
         // context.save();
