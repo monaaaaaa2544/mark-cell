@@ -18,6 +18,7 @@ page {
   page > view > .options{
       display: flex;
       margin-bottom: 10px;
+      gap: 1vw;
   }
   
   

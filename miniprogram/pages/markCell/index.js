@@ -8,8 +8,10 @@ Page({
             { text: 'ALL', value: 0 },
             { text: 'AML', value: 1 },
             { text: 'Other', value: 2 },
+            { text: 'null', value: 3 },
+
         ],
-        cellTypeValue: 0,
+        cellTypeValue: 3,
         hasMarked: false,
         noMarked: true,
         // markedImg:[ 
@@ -390,10 +392,10 @@ Page({
                 for(let i=0;i<this.data.fileIDs.length;i++){
                     httpData.push(this.upbase({
                         // "_id":asdfasdf,
-                        "benign":null,
+                        "benign":true,
                         "marked":false,
                         "src":this.data.fileIDs[i],
-                        "type":"ALL"
+                        "type":"null"
                     }, "images"))
                 }
 

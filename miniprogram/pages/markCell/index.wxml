@@ -15,6 +15,7 @@
     <div class="options">
         <van-button id="revocation" bindtap="clearMyCanvas">清空</van-button>
         <van-button id="uploadImage" bindtap="uploadImage" type="primary">上传本地图片</van-button>
+        <van-button id="downloadImage" bindtap="downloadImage" type="info">下载图片</van-button>
     </div>
     <div class="cellImage" id="cellImage">
         <canvas id="backCanvas" class="back" style="border: 2px solid black;"  type="2d">
